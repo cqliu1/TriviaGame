@@ -7,9 +7,25 @@
 </head>
 <body>
 	<div class="container">
-		<div id="timer"></div>
+		<h1></h1>
+		<div id="time-remaining">
+			Time Remaining: <span id="timer"></span>
+		</div>
 		<div id="question"></div>
-		<div id="answers"></div>
+		<div id="answers">
+			<ul class="list-group">
+			  <li type="button" class="list-group-item" id="a">
+			  </li>
+			  <li type="button" class="list-group-item" id="b">
+			  </li>
+			  <li type="button" class="list-group-item" id="c">
+			  </li>
+			  <li type="button" class="list-group-item" id="d">
+			  </li>
+			  <li type="button" class="list-group-item" id="e">
+			  </li>
+			</ul>
+		</div>
 		<div id="game-over">
 			<h2> Right Answers: <span id="right"></span></h2>
 			<h2> Wrong Answers: <span id="wrong"></span></h2>
