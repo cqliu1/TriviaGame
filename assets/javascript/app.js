@@ -6,66 +6,83 @@ $(document).ready(function() {
 	var countdown;
 	var timeLeft;
 	var currentQuestion;
+	var disabled;
 
 	var questions = [];
 
 	questions.push({
-		question: "",
-		answers:["","","",""],
-		correctAnswer: 0
+		question: "Which phrase does the Evil Queen in 'Snow White' actually say?",
+		answers:["Magic mirror on the wall, who is the fairest one of all?","Magic mirror on the wall, who is the wisest one of all?","Magic mirror on the wall, who is the swiftest one of all?","Magic mirror on the wall, who is the strongest one of all?"],
+		correctAnswer: 0,
+		img:"question1.jpg"
 	});
 
 	questions.push({
-		question: "",
-		answers:["","","",""],
-		correctAnswer: 0
+		question: "What did Jasmine steal from the marketplace?",
+		answers:["A loaf of bread","A rug","A sword","An apple"],
+		correctAnswer: 3,
+		img:"question2.jpg"
 	});
 
-	// questions.push({
-	// 	question: "",
-	// 	answers:["","","",""],
-	// 	correctAnswer: 0
-	// });
+	
+	questions.push({
+		question: "How many sisters does Ariel have?",
+		answers:["8","3","6","12"],
+		correctAnswer: 2,
+		img:"question3.jpg"
+	});
 
-	// questions.push({
-	// 	question: "",
-	// 	answers:["","","",""],
-	// 	correctAnswer: 0
-	// });
+	questions.push({
+		question: "What is Boo's real name?",
+		answers:["Eva","Mary","Jenny","Olive"],
+		correctAnswer: 1,
+		img:"question4.jpg"
+	});
 
-	// questions.push({
-	// 	question: "",
-	// 	answers:["","","",""],
-	// 	correctAnswer: 0
-	// });
+	questions.push({
+		question: "How many eggs does Gaston eat for breakfast?",
+		answers:["One Dozen","Two Dozen","Five Dozen","Ten Dozen"],
+		correctAnswer: 2,
+		img:"question5.jpg"
+	});
 
-	// questions.push({
-	// 	question: "",
-	// 	answers:["","","",""],
-	// 	correctAnswer: 0
-	// });
+	questions.push({
+		question: "Who’s the voice of Esmeralda in The Hunchback of Notre Dame?",
+		answers:["Oprah","Emma Thompson","Ellen Degeneres","Demi Moore"],
+		correctAnswer: 3,
+		img:"question6.jpg"
+	});
 
-	// questions.push({
-	// 	question: "",
-	// 	answers:["","","",""],
-	// 	correctAnswer: 0
-	// });
+	questions.push({
+		question: "What color is the rim of the scuba diver's goggles?",
+		answers:["Yellow","Green","Blue","Red"],
+		correctAnswer: 1,
+		img:"question7.jpg"
+	});
 
-	// questions.push({
-	// 	question: "",
-	// 	answers:["","","",""],
-	// 	correctAnswer: 0
-	// });
+	questions.push({
+		question: "How many bows are on the skirt of Cinderella's pink dress?",
+		answers:["Two","Three","Four","Five"],
+		correctAnswer: 0,
+		img:"question8.jpg"
+	});
 
-	// questions.push({
-	// 	question: "",
-	// 	answers:["","","",""],
-	// 	correctAnswer: 0
-	// });
+	questions.push({
+		question: "What are the names of the mortal couple that adopts Hercules?",
+		answers:["Yellow","Blue","Green","Red"],
+		correctAnswer: 2,
+		img:"question9.jpg"
+	});
 
+	questions.push({
+		question: "What is Jane's last name?",
+		answers:["Seymore","Porter","Williams","Clayton"],
+		correctAnswer: 1,
+		img:"question10.jpg"
+	});
 
 	// functions
-	function startGame() {
+	var startGame = function() {
 		right = 0;
 		wrong = 0;
 		currentQuestion = 0;
@@ -76,17 +93,16 @@ $(document).ready(function() {
 		$("#game-over").hide();
 	}
 
-	function displayQuestion() {
-		$("#question").html(questions[currentQuestion].question);
+	var displayQuestion = function() {
+		disabled = false;
+		$("#image").html($("<img src='assets/images/" + questions[currentQuestion].img + "' >"));
+		$("#question").html("<h3> " + questions[currentQuestion].question + "</h3>");
 		var answers = questions[currentQuestion].answers;
 
 		for(var i = 0; i < answers.length; i++) {
-			$("#"+i).html(questions[currentQuestion].answer).removeClass("list-group-item-success list-group-item-danger");
+			$("#"+i).html(answers[i]);
+			$("#"+i).removeClass("list-group-item-success list-group-item-danger");
 		}
-
-		timer = setTimeout(function() {
-			displayAnswer(-1);
-		},11000);
 
 		timeLeft = 10;
 		updateTimer();
@@ -95,9 +111,14 @@ $(document).ready(function() {
 			timeLeft--;
 			updateTimer();
 		},1000);
+
+		timer = setTimeout(function() {
+			displayAnswer(-1);
+		},10000);
 	}
 
-	function displayAnswer(id) {
+	var displayAnswer = function(id) {
+		disabled = true;
 		clearInterval(timer);
 		clearInterval(countdown);
 		var correct = questions[currentQuestion].correctAnswer;
@@ -114,10 +135,10 @@ $(document).ready(function() {
 		
 		timer = setTimeout(function() {
 			nextQuestion();
-		}, 5000);
+		}, 2000);
 	}
 
-	function nextQuestion() {
+	var nextQuestion = function() {
 		currentQuestion++;
 		if(currentQuestion < questions.length) {
 			displayQuestion();
@@ -126,7 +147,7 @@ $(document).ready(function() {
 		}
 	}
 
-	function updateTimer() {
+	var updateTimer = function() {
 		if(timeLeft === 0) {
 			$("#timer").html("Time's up!");
 		} else {
@@ -134,7 +155,7 @@ $(document).ready(function() {
 		}
 	}
 
-	function endGame() {
+	var endGame = function() {
 		$("#right").html(right);
 		$("#wrong").html(wrong);
 		$("#game").hide();
@@ -143,7 +164,8 @@ $(document).ready(function() {
 
 	// click event listeners
 	$(".list-group-item").on("click", function() {
-		displayAnswer($(this).attr("id"));
+		if(!disabled)
+			displayAnswer($(this).attr("id"));
 	});
 
 	$("#start").on("click", function() {
@@ -155,6 +177,8 @@ $(document).ready(function() {
 		startGame();
 	});
 
+
+	// hides divs before start of game
 	$("#game").hide();
 	$("#game-over").hide();
 });
