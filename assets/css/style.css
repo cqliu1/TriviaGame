@@ -2,3 +2,15 @@ img {
 	height: 500px;
 	width: auto;
 }
+
+body {
+	background-image: URL("../images/background.jpeg");
+}
+
+.container {
+	margin-top: 5vh;
+	opacity: .95;
+	background-color: white;
+	padding: 20px;
+	height: 90vh;
+}
