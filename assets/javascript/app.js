@@ -69,7 +69,7 @@ $(document).ready(function() {
 
 	questions.push({
 		question: "What are the names of the mortal couple that adopts Hercules?",
-		answers:["Yellow","Blue","Green","Red"],
+		answers:["Clio and Calliope","Philocetes and Philodendra","Amphitryon and Alcemene","Alcestis and Admetus"],
 		correctAnswer: 2,
 		img:"question9.jpg"
 	});
